@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>YouTube Video Downloader</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background-color: crimson;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 16px;
+            width: 300px;
+        }
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        .copyright::before {
+                 content: "\00A9\00A0"; /* Unicode for copyright symbol and a space */
+        }
+    </style>
+    <script>
+        // Check browser support for SpeechSynthesis
+        if ('speechSynthesis' in window) {
+            var speechMessage = new SpeechSynthesisUtterance(' I am basem in the background. Download any video from any device only by the video link on YouTube       thank you for trying my app ');
+            speechSynthesis.speak(speechMessage);
+        } else {
+            console.error('Speech synthesis not supported.');
+        }
+    </script>
+    
+        
+</head>
+<body>
+    <h1>YouTube Video Downloader</h1>
+    <form action="{{ url_for('download') }}" method="post">
+        <input type="text" name="video_url" placeholder="Enter YouTube video URL" required>
+        <button type="submit">Download</button>
+    </form>
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <footer>
+        <p class="copyright">2024 made by basem halaika. All rights reserved.<br> &#128522; &#128526;</p>
+
+    </footer>
+
+    
+    <script>
+        const currentYear = new Date().getFullYear();
+const copyrightNotice = `&copy; ${currentYear} Your Company Name. All rights reserved.`;
+document.getElementById('copyright').innerHTML = copyrightNotice;
+    </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        const scene = new THREE.Scene();
+
+// Create a camera
+const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+camera.position.z = 5;
+
+// Create a renderer
+const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('canvas'), antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Create a geometry for the background
+const geometry = new THREE.BoxGeometry(5, 5, 5);
+
+// Create a material for the background
+const material = new THREE.MeshBasicMaterial({ color: 0x00ff00, wireframe: true });
+
+// Create a mesh for the background
+const cube = new THREE.Mesh(geometry, material);
+scene.add(cube);
+
+// Animation function
+function animate() {
+    requestAnimationFrame(animate);
+
+    // Rotate the cube
+    cube.rotation.x += 0.01;
+    cube.rotation.y += 0.02;
+
+    renderer.render(scene, camera);
+}
+
+animate();
+
+    </script>
+    
+</body>
+</html>
